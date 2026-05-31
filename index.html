@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenTask // Premium Task Manager</title>
+  <meta name="description" content="ZenTask is a high-fidelity, beautifully styled task manager designed to keep you productive and focused. Organize your day with sleek glassmorphic controls and responsive local storage synchronization.">
+  <!-- Google Fonts: Outfit and Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Background Orbs for Deep Dimensionality -->
+  <div class="ambient-glow">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <main class="app-wrapper">
+    <!-- App Main Glass Glassmorphic Panel -->
+    <div class="app-container">
+      
+      <!-- HEADER COMPONENT -->
+      <header class="app-header">
+        <div class="header-main">
+          <div class="header-intro">
+            <h1 id="user-greeting" class="user-greeting">Hello, Achiever</h1>
+            <p id="current-date" class="current-date">Sunday, May 31, 2026</p>
+          </div>
+          
+          <!-- Quick Status Indicator -->
+          <div class="header-stats-card">
+            <div class="stats-text">
+              <span class="stats-label">Daily Progress</span>
+              <span id="stats-percentage" class="stats-percentage">0%</span>
+              <span id="stats-ratio" class="stats-ratio">0 of 0 tasks</span>
+            </div>
+            <div class="progress-ring-container">
+              <svg class="progress-ring" width="56" height="56">
+                <circle class="progress-ring__circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="4" fill="transparent" r="24" cx="28" cy="28"/>
+                <circle id="progress-circle" class="progress-ring__circle" stroke="url(#progress-gradient)" stroke-width="4" fill="transparent" r="24" cx="28" cy="28"/>
+                <defs>
+                  <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#8b5cf6" /> <!-- Violet-500 -->
+                    <stop offset="100%" stop-color="#06b6d4" /> <!-- Cyan-500 -->
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="progress-ring-icon">
+                <i data-lucide="award"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- TASK CREATION COMPONENT -->
+      <section class="task-form-section">
+        <form id="task-form" class="task-form" aria-label="Create a new task">
+          <div class="input-group">
+            <span class="input-icon"><i data-lucide="plus-circle"></i></span>
+            <input 
+              type="text" 
+              id="task-input" 
+              class="task-input" 
+              placeholder="What needs to be accomplished today?" 
+              maxlength="120"
+              required 
+              autocomplete="off"
+            >
+            <button type="submit" id="add-task-btn" class="add-task-btn" aria-label="Add Task">
+              <span>Add Task</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Meta selectors (Priority, Category) -->
+          <div class="meta-selectors">
+            <!-- Category Pills -->
+            <div class="selector-group">
+              <span class="selector-label">Category</span>
+              <div class="pills-container category-pills">
+                <label class="pill-label">
+                  <input type="radio" name="category" value="work" checked>
+                  <span class="pill-btn"><i data-lucide="briefcase"></i> Work</span>
+                </label>
+                <label class="pill-label">
+                  <input type="radio" name="category" value="personal">
+                  <span class="pill-btn"><i data-lucide="user"></i> Personal</span>
+                </label>
+                <label class="pill-label">
+                  <input type="radio" name="category" value="shopping">
+                  <span class="pill-btn"><i data-lucide="shopping-bag"></i> Shopping</span>
+                </label>
+                <label class="pill-label">
+                  <input type="radio" name="category" value="fitness">
+                  <span class="pill-btn"><i data-lucide="dumbbell"></i> Health</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Priority Selectors -->
+            <div class="selector-group">
+              <span class="selector-label">Priority</span>
+              <div class="pills-container priority-pills">
+                <label class="pill-label priority-low">
+                  <input type="radio" name="priority" value="low" checked>
+                  <span class="pill-btn">Low</span>
+                </label>
+                <label class="pill-label priority-medium">
+                  <input type="radio" name="priority" value="medium">
+                  <span class="pill-btn">Medium</span>
+                </label>
+                <label class="pill-label priority-high">
+                  <input type="radio" name="priority" value="high">
+                  <span class="pill-btn">High</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- FILTER, SORT, AND SEARCH NAVIGATION -->
+      <section class="controls-section">
+        <!-- Search bar -->
+        <div class="search-bar">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="search-input" placeholder="Search tasks..." autocomplete="off">
+          <button id="clear-search" class="clear-search" type="button" style="display: none;" aria-label="Clear Search">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <!-- Controls container: segmented tabs -->
+        <div class="control-row">
+          <!-- Status Filters Segmented Tab -->
+          <div class="segmented-control">
+            <button class="segment-btn active" data-filter="all">All</button>
+            <button class="segment-btn" data-filter="active">Active</button>
+            <button class="segment-btn" data-filter="completed">Completed</button>
+          </div>
+
+          <!-- Category filter dropdown -->
+          <div class="filter-dropdown-container">
+            <i data-lucide="filter" class="dropdown-icon"></i>
+            <select id="category-filter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="work">💼 Work</option>
+              <option value="personal">👤 Personal</option>
+              <option value="shopping">🛍️ Shopping</option>
+              <option value="fitness">💪 Health</option>
+            </select>
+          </div>
+
+          <!-- Sort Selector -->
+          <div class="sort-selector-container">
+            <i data-lucide="arrow-up-down" class="dropdown-icon"></i>
+            <select id="sort-select" class="filter-select">
+              <option value="date-newest">Newest First</option>
+              <option value="date-oldest">Oldest First</option>
+              <option value="priority-desc">Priority: High to Low</option>
+              <option value="priority-asc">Priority: Low to High</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- TASK LIST BODY -->
+      <section class="task-list-section">
+        <!-- Scrollable list -->
+        <ul id="task-list" class="task-list">
+          <!-- Dynamic task elements will be populated here -->
+        </ul>
+
+        <!-- Empty State Container -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+          <div class="empty-icon-glow">
+            <div class="empty-icon-container">
+              <i data-lucide="clipboard-check" class="empty-icon"></i>
+            </div>
+          </div>
+          <h3 id="empty-title">All Caught Up!</h3>
+          <p id="empty-description">Create a task above to begin organizing your goals for today.</p>
+        </div>
+      </section>
+
+      <!-- DYNAMIC STATUS FOOTER -->
+      <footer class="app-footer">
+        <div class="footer-stats">
+          <span id="items-left-text" class="items-left-text">0 items active</span>
+        </div>
+        <div class="footer-actions">
+          <button id="clear-completed-btn" class="footer-btn action-clear" title="Remove completed tasks">
+            <i data-lucide="trash-2"></i>
+            <span>Clear Completed</span>
+          </button>
+          <button id="reset-all-btn" class="footer-btn action-reset" title="Reset all task data">
+            <i data-lucide="rotate-ccw"></i>
+            <span>Reset All</span>
+          </button>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
