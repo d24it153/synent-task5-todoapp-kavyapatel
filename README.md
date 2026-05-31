@@ -1,4 +1,4 @@
-# ZenTask // Premium Task Manager
+# ZenTask // Premium Task Manager1
 
 ZenTask is a high-fidelity, visually stunning, and responsive task management web application built from scratch using raw HTML, CSS, and modern JavaScript. It features a premium **dark-glassmorphism theme**, vibrant ambient glowing background elements, dynamic SVG charts, inline text editing, and instant local storage persistence.
 
